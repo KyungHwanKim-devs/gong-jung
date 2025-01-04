@@ -56,6 +56,14 @@ export default function DataList() {
         ),
       },
       {
+        accessorKey: "imagePath",
+        header: "이미지",
+        cell: ({ row }) => {
+          const urlEncodedPath = encodeURIComponent(row.original?.image?.path.replaceAll('./uploads/', ''))
+          return row.original?.image?.path ? <img src={`/api/image/file/${urlEncodedPath}`} alt="이미지" /> : null
+        },
+      },
+      {
         accessorKey: "orgCode",
         header: "처리과코드",
       },
@@ -199,14 +207,7 @@ export default function DataList() {
         accessorKey: "updateTime",
         header: "수정시간",
       },
-      {
-        accessorKey: "imagePath",
-        header: "이미지",
-        cell: ({ row }) => {
-          const urlEncodedPath = encodeURIComponent(row.original?.image?.path.replaceAll('./uploads/', ''))
-          return row.original?.image?.path ? <img src={`/api/image/file/${urlEncodedPath}`} alt="이미지" /> : null
-        },
-      },
+      
     ],
     []
   );
@@ -298,6 +299,12 @@ export default function DataList() {
             </option>
           ))}
         </select>
+        <div className="flex items-center gap-2">
+          <button className="border rounded p-1" onClick={() => alert('준비중')}>TXT Download</button>
+          <button className="border rounded p-1" onClick={() => alert('준비중')}>PDF Download</button>
+          <button className="border rounded p-1" onClick={() => alert('준비중')}>이미지 다운로드</button>
+          <button className="border rounded p-1" onClick={() => alert('준비중')}>엑셀 다운로드</button>
+        </div>
       </div>
       <div>
         {Object.keys(rowSelection).length} of{' '}
