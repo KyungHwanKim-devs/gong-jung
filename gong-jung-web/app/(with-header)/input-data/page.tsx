@@ -115,12 +115,17 @@ export default function InputData() {
     setFormData((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (images.length === 0) {
       alert("이미지를 업로드하세요.");
       return;
     }
+
+    setIsSubmitting(true); // 제출 시작
 
     const formDataToSend = new FormData();
     const image = images[currentIndex];
@@ -148,6 +153,8 @@ export default function InputData() {
     } catch (error) {
       console.error('Fetch error:', error);
       alert("오류 발생!");
+    } finally {
+      setIsSubmitting(false); // 제출 완료
     }
   };
 
@@ -201,11 +208,12 @@ export default function InputData() {
         <form>
         <div>
             <button
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className={`px-4 py-2  text-white rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed bg-gray-500' : 'bg-blue-500'}`}
               type="submit"
               onClick={handleSubmit}
+              disabled={isSubmitting}
             >
-              입력하기
+              {isSubmitting ? '입력중...' : '입력하기'}
             </button>
           </div>
           {inputFields.map((field) => (
