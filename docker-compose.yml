@@ -3,6 +3,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:latest
+
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -20,13 +21,16 @@ services:
       - postgres
     environment:
       DATABASE_URL: postgres://user:password@postgres:5432/mydb
+      HOST_IP: ${HOST_IP} # 호스트 IP 전달
+
     volumes:
       - ./gong-jung-backend/uploads:/app/uploads
 
   frontend:
     build: ./gong-jung-web
+
     ports:
-      - "80:3000"
+      - "80:3001"
     depends_on:
       - backend
 

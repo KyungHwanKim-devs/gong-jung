@@ -11,6 +11,8 @@ import {
 import { ImageService } from './image.service';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as os from 'os';
+
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { TextTable } from './entities/text_table.entity';
@@ -99,6 +101,23 @@ export class ImageController {
   @Get('text-tables')
   async getTextTables() {
     console.log('getTextTables');
+    const networkInterfaces = os.networkInterfaces();
+    const ipAddresses = [];
+
+    for (const interfaceName in networkInterfaces) {
+      const interfaces = networkInterfaces[interfaceName];
+      for (const iface of interfaces) {
+        console.log('iface', iface);
+        if (iface.family === 'IPv4' && !iface.internal) {
+          ipAddresses.push(iface.address);
+        }
+      }
+    }
+
+    console.log('ipAddresses', ipAddresses);
+    console.log('-----------------------------');
+    const hostIp = process.env.HOST_IP;
+    console.log(`Host IP: ${hostIp}`);
 
     return await this.imageService.findAllTextTables();
   }
