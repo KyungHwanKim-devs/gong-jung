@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ReactCollapse--collapse {
+  transition: height 300ms;
+}
+
+.swiper-scrollbar,
+.swiper-pagination,
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+@layer utilities {
+  /* 작은 원의 애니메이션: 시계방향 */
+  @keyframes smallCircleAnimation {
+    0% {
+      transform: rotate(0deg) translate(0, -50%) scale(0.34);
+    }
+    50% {
+      transform: rotate(180deg) translate(0, -50%) scale(1);
+    }
+    100% {
+      transform: rotate(360deg) translate(0, -50%) scale(0.34);
+    }
+  }
+
+  /* 큰 원의 애니메이션: 시계방향 */
+  @keyframes bigCircleAnimation {
+    0% {
+      transform: rotate(0deg) translate(0, 50%) scale(1);
+    }
+    50% {
+      transform: rotate(180deg) translate(0, 50%) scale(0.34);
+    }
+    100% {
+      transform: rotate(360deg) translate(0, 50%) scale(1);
+    }
+  }
+
+  .animate-smallCircle {
+    animation: smallCircleAnimation 2.5s linear infinite;
+  }
+
+  .animate-bigCircle {
+    animation: bigCircleAnimation 2.5s linear infinite;
+  }
+}
